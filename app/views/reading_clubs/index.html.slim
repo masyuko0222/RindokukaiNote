@@ -1,0 +1,13 @@
+h1 輪読会一覧
+
+= paginate @reading_clubs
+
+= render 'search_form', url: reading_clubs_path
+
+ul
+  - @reading_clubs.each do |reading_club|
+    li
+      = reading_club.title
+      = reading_club.finished
+
+= paginate @reading_clubs
