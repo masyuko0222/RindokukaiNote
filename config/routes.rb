@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#callback'
   get '/auth/failure', to: redirect('/login')
 
-  get '/reading_clubs', to: 'reading_clubs#index'
+  resources :reading_clubs, only: [:index] do
+    resources :participants, only: [:create, :destroy], controller: 'participants'
+  end
 end
