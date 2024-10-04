@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  include SessionHelper
-
   def new; end
 
   def callback
