@@ -8,6 +8,10 @@ class User < ApplicationRecord
   has_many :participants, dependent: :destroy
   has_many :participating_reading_clubs, through: :participants, source: :reading_club
 
+  def open_participating_reading_clubs
+    (ReadingClub.open & participating_reading_clubs).sort(&:updated_at)
+  end
+
   class << self
     def find_or_create_from_discord_info(discord_info)
       user_info = user_discord_info(discord_info)
