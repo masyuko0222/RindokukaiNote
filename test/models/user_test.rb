@@ -41,4 +41,19 @@ class UserTest < ActiveSupport::TestCase
       assert_equal 'NewTestMan', oauth_user.name
     end
   end
+
+  test '.participating_open_clubs' do
+    user = users(:user1)
+
+    r1 = reading_clubs(:reading_club1)
+    r3 = reading_clubs(:reading_club3)
+    r20 = reading_clubs(:reading_club20)
+
+    [r1, r3, r20].each do |r|
+      user.participants.create!(reading_club: r)
+    end
+
+    assert_equal 3, user.participating_open_clubs.count
+    assert_equal [r20, r3, r1], user.participating_open_clubs.first(3) # 後から参加したものが先頭にくる
+  end
 end

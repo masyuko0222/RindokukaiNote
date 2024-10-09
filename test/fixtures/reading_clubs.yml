@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+<% 20.times do |i| %>
+reading_club<%= i + 1 %>:
+  title: OpenClub <%= i + 1 %>
+  finished: false
+  template: null
+  read_me: null
+<% end %>
+
+<% (20..40).each do |i| %>
+reading_club<%= i + 1 %>:
+  title: FinishedClub <%= i + 1 %>
+  finished: true
+  template: null
+  read_me: null
+<% end %>
