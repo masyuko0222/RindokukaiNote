@@ -7,8 +7,19 @@ class ReadingClubsController < ApplicationController
 
     @q = ReadingClub.ransack(params[:q])
 
-    clubs = (current_user.participating_open_clubs + @q.result.order(:updated_at)).uniq(&:id)
+    @reading_clubs = Kaminari.paginate_array(sort_reading_clubs(params[:q])).page(params[:page])
+  end
 
-    @reading_clubs = Kaminari.paginate_array(clubs).page(params[:page])
+  private
+
+  def sort_reading_clubs(search_query)
+    result = @q.result.order(updated_at: :desc)
+
+    if search_query[:finished_eq] == 'true' || search_query[:title_cont].present?
+      result
+    else
+      (ReadingClub.opening_clubs_participated_by(current_user) + result)
+        .uniq(&:id)
+    end
   end
 end
