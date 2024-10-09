@@ -16,5 +16,11 @@ class ReadingClub < ApplicationRecord
     def ransackable_attributes(_auth_object = nil)
       %w[title finished]
     end
+
+    def opening_clubs_participated_by(user)
+      (ReadingClub.open & user.participating_reading_clubs)
+        .sort_by { |club| club.participants.last.updated_at }
+        .reverse
+    end
   end
 end
