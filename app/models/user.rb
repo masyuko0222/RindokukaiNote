@@ -8,8 +8,10 @@ class User < ApplicationRecord
   has_many :participants, dependent: :destroy
   has_many :participating_reading_clubs, through: :participants, source: :reading_club
 
-  def open_participating_reading_clubs
-    (ReadingClub.open & participating_reading_clubs).sort(&:updated_at)
+  def participating_open_clubs
+    (ReadingClub.open & participating_reading_clubs)
+      .sort_by { |club| club.participants.last.updated_at }
+      .reverse
   end
 
   class << self
