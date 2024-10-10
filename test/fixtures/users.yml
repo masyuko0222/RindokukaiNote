@@ -4,3 +4,9 @@ user1:
   uid: 12345678
   name: TestMan
   provider: discord
+
+user2:
+  uid: 91011121
+  name: NoParticipatingMan
+  provider: discord
+
