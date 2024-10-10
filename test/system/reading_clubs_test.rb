@@ -42,4 +42,14 @@ class ReadingClubsTest < ApplicationSystemTestCase
 
     assert_equal expected_top_titles, titles.first(3)
   end
+
+  test 'finished reading_clubs does not have participant links' do
+    visit_with_auth(reading_clubs_path, @user)
+    fill_in '輪読会のタイトルで検索', with: ''
+    choose '終了'
+    click_button '検索'
+
+    assert_no_selector 'a', text: '参加'
+    assert_no_selector 'a', text: '参加取消'
+  end
 end
