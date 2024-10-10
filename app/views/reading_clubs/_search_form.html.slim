@@ -1,4 +1,4 @@
-= search_form_for(@q, url: url, enforce_utf8: false) do |f|
+= search_form_for(@q, url:, enforce_utf8: false) do |f|
   = f.search_field :title_cont, placeholder: '輪読会のタイトルで検索', class: 'form-control'
   br
   = f.label :finished_eq, '開催状態'
